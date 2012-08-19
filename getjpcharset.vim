@@ -5,9 +5,11 @@ scriptencoding euc-jp
 " Last Change: 2012-08-19
 " 
 " Description:
-"   カーソル位置の文字のcharsetを表示する。
-"   (jisx0208,jisx0213-1,jisx0213:2004-1,jisx0213-2,jisx0212,
-"   ksc5601,gb2312,unicode,ascii)
+"   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
+"   ただし、対応しているのは、以下のcharsetのみ。
+"   (ISO-2022-JP-3やISO-2022-JP-2に変換してみて判定)
+"     jisx0208,jisx0213-1,jisx0213:2004-1,jisx0213-2,jisx0212,
+"     ksc5601,gb2312,unicode,ascii
 "
 "   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charset相当。
 "
@@ -55,6 +57,8 @@ function! s:GetJpCharSet(str)
 	return 'ksc5601'
       elseif escstr =~ '^\e\$A'
 	return 'gb2312'
+      elseif escstr =~ '^\e\$B'
+        return 'jisx0208' " 「ト」がiso-2022-jp-3だと変換できない時があるので
       else
 	return 'unicode'
       endif

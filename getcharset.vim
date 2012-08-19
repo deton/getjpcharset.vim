@@ -19,7 +19,15 @@ if exists('g:loaded_getcharset')
 endif
 let g:loaded_getcharset = 1
 
+nmap <silent> <Leader>= :<C-U>echo <SID>GetCharSetForPos()<CR>
+
+function! s:GetCharSetForPos()
+  let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')
+  return s:GetCharSet(ch)
+endfunction
+
 function! s:GetCharSet(str)
+  " XXX: expect conversion as ISO-2022-JP-3-strict
   let escstr = iconv(a:str, &enc, 'iso-2022-jp-3')
   if escstr == a:str
     return 'ascii'
@@ -55,10 +63,3 @@ function! s:GetCharSet(str)
     endif
   endif
 endfunction
-
-function! s:GetCharSetForPos()
-  let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  return s:GetCharSet(ch)
-endfunction
-
-nmap <silent> <Leader>= :<C-U>echo <SID>GetCharSetForPos()<CR>

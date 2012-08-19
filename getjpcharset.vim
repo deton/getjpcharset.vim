@@ -14,7 +14,7 @@ scriptencoding euc-jp
 "   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charset相当。
 "
 " コマンド:
-"   :GetJpCharSet  指定した文字のcharsetを表示する
+"   :GetJpCharset  指定した文字のcharsetを表示する
 "
 " nmap:
 "   <Leader>=  カーソル位置の文字のcharsetを表示する
@@ -24,8 +24,8 @@ if exists('g:loaded_getjpcharset')
 endif
 let g:loaded_getjpcharset = 1
 
-if !exists(":GetJpCharSet")
-  command -nargs=1 GetJpCharSet echo <SID>GetJpCharSet(<q-args>)
+if !exists(":GetJpCharset")
+  command -nargs=1 GetJpCharset echo <SID>GetJpCharset(<q-args>)
 endif
 
 let s:set_mapleader = 0
@@ -33,22 +33,22 @@ if !exists('g:mapleader')
   let g:mapleader = "\<C-K>"
   let s:set_mapleader = 1
 endif
-if !hasmapto('<Plug>GetJpCharSetForPos')
-  map <unique> <Leader>= <Plug>GetJpCharSetForPos
+if !hasmapto('<Plug>GetJpCharsetForPos')
+  map <unique> <Leader>= <Plug>GetJpCharsetForPos
 endif
-noremap <unique> <script> <Plug>GetJpCharSetForPos <SID>ForPos
-noremap <SID>ForPos :<C-U>echo <SID>GetJpCharSetForPos()<CR>
+noremap <unique> <script> <Plug>GetJpCharsetForPos <SID>ForPos
+noremap <SID>ForPos :<C-U>echo <SID>GetJpCharsetForPos()<CR>
 if s:set_mapleader
   unlet g:mapleader
 endif
 unlet s:set_mapleader
 
-function! s:GetJpCharSetForPos()
+function! s:GetJpCharsetForPos()
   let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  return s:GetJpCharSet(ch)
+  return s:GetJpCharset(ch)
 endfunction
 
-function! s:GetJpCharSet(str)
+function! s:GetJpCharset(str)
   " XXX: expect conversion as ISO-2022-JP-3-strict
   let escstr = iconv(a:str, &enc, 'iso-2022-jp-3')
   if escstr == a:str

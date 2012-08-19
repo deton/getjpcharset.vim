@@ -1,8 +1,8 @@
 scriptencoding euc-jp
-" getcharset.vim - 漢字のcharsetを調べるためのスクリプト。
+" getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-08-12
+" Last Change: 2012-08-19
 " 
 " Description:
 "   カーソル位置の文字のcharsetを表示する。
@@ -14,19 +14,19 @@ scriptencoding euc-jp
 " nmap:
 "   <Leader>=  カーソル位置の文字のcharsetを表示する
 
-if exists('g:loaded_getcharset')
+if exists('g:loaded_getjpcharset')
   finish
 endif
-let g:loaded_getcharset = 1
+let g:loaded_getjpcharset = 1
 
-nmap <silent> <Leader>= :<C-U>echo <SID>GetCharSetForPos()<CR>
+nmap <silent> <Leader>= :<C-U>echo <SID>GetJpCharSetForPos()<CR>
 
-function! s:GetCharSetForPos()
+function! s:GetJpCharSetForPos()
   let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  return s:GetCharSet(ch)
+  return s:GetJpCharSet(ch)
 endfunction
 
-function! s:GetCharSet(str)
+function! s:GetJpCharSet(str)
   " XXX: expect conversion as ISO-2022-JP-3-strict
   let escstr = iconv(a:str, &enc, 'iso-2022-jp-3')
   if escstr == a:str

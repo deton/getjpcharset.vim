@@ -13,6 +13,9 @@ scriptencoding euc-jp
 "
 "   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charset相当。
 "
+" コマンド:
+"   :GetJpCharSet  指定した文字のcharsetを表示する
+"
 " nmap:
 "   <Leader>=  カーソル位置の文字のcharsetを表示する
 
@@ -21,7 +24,24 @@ if exists('g:loaded_getjpcharset')
 endif
 let g:loaded_getjpcharset = 1
 
-nmap <silent> <Leader>= :<C-U>echo <SID>GetJpCharSetForPos()<CR>
+if !exists(":GetJpCharSet")
+  command -nargs=1 GetJpCharSet echo <SID>GetJpCharSet(<q-args>)
+endif
+
+let s:set_mapleader = 0
+if !exists('g:mapleader')
+  let g:mapleader = "\<C-K>"
+  let s:set_mapleader = 1
+endif
+if !hasmapto('<Plug>GetJpCharSetForPos')
+  map <unique> <Leader>= <Plug>GetJpCharSetForPos
+endif
+noremap <unique> <script> <Plug>GetJpCharSetForPos <SID>ForPos
+noremap <SID>ForPos :<C-U>echo <SID>GetJpCharSetForPos()<CR>
+if s:set_mapleader
+  unlet g:mapleader
+endif
+unlet s:set_mapleader
 
 function! s:GetJpCharSetForPos()
   let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')

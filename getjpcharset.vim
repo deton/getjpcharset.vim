@@ -2,7 +2,7 @@ scriptencoding euc-jp
 " getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-08-19
+" Last Change: 2012-08-25
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。

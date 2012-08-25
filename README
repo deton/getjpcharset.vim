@@ -8,7 +8,7 @@ Description:
     ksc5601,gb2312,unicode,ascii
 
 コマンド:
-  :GetJpCharset  指定した文字のcharsetを表示する
+  :GetJpCharset  指定した文字列の各文字のcharsetを表示する
 
 nmap:
   <Leader>=  カーソル位置の文字のcharsetを表示する

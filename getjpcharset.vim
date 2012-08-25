@@ -14,7 +14,7 @@ scriptencoding euc-jp
 "   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charset相当。
 "
 " コマンド:
-"   :GetJpCharset  指定した文字のcharsetを表示する
+"   :GetJpCharset  指定した文字列の各文字のcharsetを表示する
 "
 " nmap:
 "   <Leader>=  カーソル位置の文字のcharsetを表示する
@@ -55,45 +55,49 @@ unlet s:set_mapleader
 
 function! s:GetJpCharsetForPos()
   let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')
-  return s:GetJpCharset(ch)
+  return s:GetJpCharsetForChar(ch)
 endfunction
 
 function! s:GetJpCharset(str)
+  return substitute(a:str, '.', '\=s:GetJpCharsetForChar(submatch(0))', 'g')
+endfunction
+
+function! s:GetJpCharsetForChar(ch)
   " XXX: expect conversion as ISO-2022-JP-3-strict
-  let escstr = iconv(a:str, &enc, 'iso-2022-jp-3')
-  if escstr == a:str
-    return 'ascii'
+  let escstr = iconv(a:ch, &enc, 'iso-2022-jp-3')
+  if escstr == a:ch
+    return 'ascii '
   endif
   let len = strlen(escstr)
   if len > 4
     if escstr =~ '^\e\$(P'
-      return 'jisx0213-2'
+      return 'jisx0213-2 '
     elseif escstr =~ '^\e\$(O'
-      return 'jisx0213-1'
+      return 'jisx0213-1 '
     elseif escstr =~ '^\e\$(Q'
-      return 'jisx0213:2004-1'
+      return 'jisx0213:2004-1 '
     elseif escstr =~ '^\e\$B'
-      return 'jisx0208'
+      return 'jisx0208 '
     else
-      return 'ascii'
+      return 'ascii '
     endif
   else
-    let escstr = iconv(a:str, &enc, 'iso-2022-jp-2')
+    let escstr = iconv(a:ch, &enc, 'iso-2022-jp-2')
     let len = strlen(escstr)
     if len > 4
       if escstr =~ '^\e\$(D'
-	return 'jisx0212'
+	return 'jisx0212 '
       elseif escstr =~ '^\e\$(C'
-	return 'ksc5601'
+	return 'ksc5601 '
       elseif escstr =~ '^\e\$A'
-	return 'gb2312'
+	return 'gb2312 '
       elseif escstr =~ '^\e\$B'
-        return 'jisx0208' " 「ト」がiso-2022-jp-3だと変換できない時があるので
+        return 'jisx0208 ' " 「ト」がiso-2022-jp-3だと変換できない時があるので
       else
-	return 'unicode'
+	return 'unicode '
       endif
     else
-      return 'unicode'
+      return 'unicode '
     endif
   endif
 endfunction

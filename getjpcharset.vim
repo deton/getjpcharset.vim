@@ -6,7 +6,7 @@ scriptencoding euc-jp
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
-"   ただし、対応しているのは、以下のcharsetのみ。
+"   対応しているのは、以下のcharsetのみ。
 "   (ISO-2022-JP-3やISO-2022-JP-2に変換してみて判定)
 "     jisx0208,jisx0213-1,jisx0213:2004-1,jisx0213-2,jisx0212,
 "     ksc5601,gb2312,unicode,ascii
@@ -18,6 +18,16 @@ scriptencoding euc-jp
 "
 " nmap:
 "   <Leader>=  カーソル位置の文字のcharsetを表示する
+"
+" オプション:
+"    '<Plug>GetJpCharsetForPos'
+"       カーソル位置の文字のcharsetを表示するためのキー。省略値: <Leader>=
+"       <Leader>=を指定する場合の例:
+"         map <Leader>= <Plug>GetJpCharsetForPos
+"
+"    'loaded_getjpcharset'
+"       このプラグインを読み込みたくない場合に次のように設定する。
+"         let loaded_getjpcharset = 1
 
 if exists('g:loaded_getjpcharset')
   finish

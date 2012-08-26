@@ -26,3 +26,8 @@ nmap:
 Note:
   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charsetを、
   Vimでも調べたかったので作成。
+
+See Also:
+  + Emacs: M-x describe-char
+  + Gtk+/Qtアプリケーション用: uim-bushuconv
+  + コマンドラインツール: uimsh-kanjiset.scm (uim-bushuconvに同梱)

@@ -2,7 +2,7 @@ scriptencoding euc-jp
 " getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-08-25
+" Last Change: 2012-08-26
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
@@ -10,8 +10,6 @@ scriptencoding euc-jp
 "   (ISO-2022-JP-3やISO-2022-JP-2に変換してみて判定)
 "     jisx0208,jisx0213-1,jisx0213:2004-1,jisx0213-2,jisx0212,
 "     ksc5601,gb2312,unicode,ascii
-"
-"   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charset相当。
 "
 " コマンド:
 "   :GetJpCharset  指定した文字列の各文字のcharsetを表示する
@@ -28,6 +26,15 @@ scriptencoding euc-jp
 "    'loaded_getjpcharset'
 "       このプラグインを読み込みたくない場合に次のように設定する。
 "         let loaded_getjpcharset = 1
+"
+" Note:
+"   EmacsのM-x describe-char(C-u C-x =)で表示されるpreferred charsetを、
+"   Vimでも調べたかったので作成。
+" 
+" See Also:
+"   + Emacs: M-x describe-char
+"   + Gtk+/Qtアプリケーション用: uim-bushuconv
+"   + コマンドラインツール: uimsh-kanjiset.scm (uim-bushuconvに同梱)
 
 if exists('g:loaded_getjpcharset')
   finish

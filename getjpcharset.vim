@@ -71,7 +71,7 @@ endfunction
 
 function! s:GetJpCharsetForChar(ch)
   " XXX: expect conversion as ISO-2022-JP-3-strict
-  let escstr = iconv(a:ch, &enc, 'iso-2022-jp-3')
+  let escstr = iconv(a:ch, &enc, 'iso-2022-jp-3//ignore')
   if escstr == a:ch
     return 'ascii '
   endif
@@ -89,7 +89,7 @@ function! s:GetJpCharsetForChar(ch)
       return 'ascii '
     endif
   else
-    let escstr = iconv(a:ch, &enc, 'iso-2022-jp-2')
+    let escstr = iconv(a:ch, &enc, 'iso-2022-jp-2//ignore')
     let len = strlen(escstr)
     if len > 4
       if escstr =~ '^\e\$(D'

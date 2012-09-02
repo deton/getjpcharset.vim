@@ -2,7 +2,7 @@ scriptencoding euc-jp
 " getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-08-26
+" Last Change: 2012-09-02
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
@@ -72,6 +72,7 @@ endfunction
 function! s:GetJpCharsetForChar(ch)
   " XXX: expect conversion as ISO-2022-JP-3-strict
   let escstr = iconv(a:ch, &enc, 'iso-2022-jp-3')
+  " XXX: iconvがiso-2022-jp-3非対応の場合、元のa:chがそのまま返ってくる
   if escstr == a:ch
     return 'ascii '
   endif

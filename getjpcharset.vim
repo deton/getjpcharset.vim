@@ -2,7 +2,7 @@ scriptencoding euc-jp
 " getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-09-02
+" Last Change: 2012-09-03
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
@@ -15,14 +15,9 @@ scriptencoding euc-jp
 "   :GetJpCharset  指定した文字列の各文字のcharsetを表示する
 "
 " nmap:
-"   <Leader>=  カーソル位置の文字のcharsetを表示する
+"   ga  通常の|ga|の出力に加えて、charsetを表示する
 "
 " オプション:
-"    '<Plug>GetJpCharsetForPos'
-"       カーソル位置の文字のcharsetを表示するためのキー。省略値: <Leader>=
-"       <Leader>=を指定する場合の例:
-"         map <Leader>= <Plug>GetJpCharsetForPos
-"
 "    'loaded_getjpcharset'
 "       このプラグインを読み込みたくない場合に次のように設定する。
 "         let loaded_getjpcharset = 1
@@ -45,20 +40,21 @@ if !exists(":GetJpCharset")
   command -nargs=1 GetJpCharset echo <SID>GetJpCharset(<q-args>)
 endif
 
-let s:set_mapleader = 0
-if !exists('g:mapleader')
-  let g:mapleader = "\<C-K>"
-  let s:set_mapleader = 1
+if !hasmapto('<Plug>GetAsciiWithJpCharset')
+  nmap <unique> ga <Plug>GetAsciiWithJpCharset
 endif
-if !hasmapto('<Plug>GetJpCharsetForPos')
-  map <unique> <Leader>= <Plug>GetJpCharsetForPos
-endif
-noremap <unique> <script> <Plug>GetJpCharsetForPos <SID>ForPos
-noremap <SID>ForPos :<C-U>echo <SID>GetJpCharsetForPos()<CR>
-if s:set_mapleader
-  unlet g:mapleader
-endif
-unlet s:set_mapleader
+nnoremap <unique> <script> <Plug>GetAsciiWithJpCharset <SID>gaex
+nnoremap <SID>gaex :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
+"nnoremap ga :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
+
+function! s:GetAsciiWithJpCharset()
+  silent! redir => ga
+  silent! ascii
+  silent! redir END
+  let ga0 = substitute(ga, "\n", '', 'g')
+  let jcs = s:GetJpCharsetForPos()
+  return ga0 . ', ' . jcs
+endfunction
 
 function! s:GetJpCharsetForPos()
   let ch = matchstr(getline('.'), '\%' . col('.') . 'c.')

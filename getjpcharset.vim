@@ -40,12 +40,7 @@ if !exists(":GetJpCharset")
   command -nargs=1 GetJpCharset echo <SID>GetJpCharset(<q-args>)
 endif
 
-if !hasmapto('<Plug>GetAsciiWithJpCharset')
-  nmap <unique> ga <Plug>GetAsciiWithJpCharset
-endif
-nnoremap <unique> <script> <Plug>GetAsciiWithJpCharset <SID>gaex
-nnoremap <SID>gaex :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
-"nnoremap ga :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
+nnoremap ga :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
 
 function! s:GetAsciiWithJpCharset()
   silent! redir => ga

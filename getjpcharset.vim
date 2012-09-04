@@ -2,7 +2,7 @@ scriptencoding euc-jp
 " getjpcharset.vim - 漢字のcharsetを調べるためのスクリプト。
 "
 " Maintainer: KIHARA Hideto <deton@m1.interq.or.jp>
-" Last Change: 2012-09-03
+" Last Change: 2012-09-04
 " 
 " Description:
 "   カーソル位置の文字(主に漢字が対象)のcharsetを表示する。
@@ -40,12 +40,12 @@ if !exists(":GetJpCharset")
   command -nargs=1 GetJpCharset echo <SID>GetJpCharset(<q-args>)
 endif
 
-if !hasmapto('<Plug>GetAsciiWithJpCharset')
-  nmap <unique> ga <Plug>GetAsciiWithJpCharset
-endif
-nnoremap <unique> <script> <Plug>GetAsciiWithJpCharset <SID>gaex
-nnoremap <SID>gaex :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
-"nnoremap ga :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
+nnoremap ga :<C-U>echo <SID>GetAsciiWithJpCharset()<CR>
+"if !hasmapto('<Plug>GetJpCharsetForPos')
+"  nmap <unique> <Leader>= <Plug>GetJpCharsetForPos
+"endif
+nnoremap <unique> <script> <Plug>GetJpCharsetForPos <SID>ForPos
+nnoremap <SID>ForPos :<C-U>echo <SID>GetJpCharsetForPos()<CR>
 
 function! s:GetAsciiWithJpCharset()
   silent! redir => ga

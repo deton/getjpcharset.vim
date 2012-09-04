@@ -8,7 +8,7 @@ function! s:GetJpCharsetTest()
   let GetJpCharsetForChar = function('<SNR>' . sid . '_GetJpCharsetForChar')
 
   se enc=utf-8
-  edit kanjiset.in
+  edit %:h/kanjiset.in
   %s/\(.\)/\=GetJpCharsetForChar(submatch(0))/g
   vert diffsplit kanjiset.expect
 endfunction

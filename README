@@ -25,4 +25,6 @@ Note:
 See Also:
   + Emacs: M-x describe-char
   + Gtk+/Qtアプリケーション用: uim-bushuconv
+    https://github.com/deton/uim-bushuconv
   + コマンドラインツール: uimsh-kanjiset.scm (uim-bushuconvに同梱)
+    https://github.com/deton/uim-bushuconv#toolsuimsh-kanjisetscm-%E6%BC%A2%E5%AD%97%E9%9B%86%E5%90%88%E3%81%AE%E5%88%A4%E5%AE%9A

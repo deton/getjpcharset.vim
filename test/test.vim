@@ -1,3 +1,4 @@
+scriptencoding euc-jp
 function! s:GetJpCharsetTest()
   " :command結果から、<SNR>番号取得
   " http://mattn.kaoriya.net/software/vim/20110728094347.htm

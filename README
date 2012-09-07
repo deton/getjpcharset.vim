@@ -7,6 +7,10 @@ Description:
     jisx0208,jisx0213-1,jisx0213:2004-1,jisx0213-2,jisx0212,
     ksc5601,gb2312,unicode,ascii
 
+実行例:
+  :GetJpCharset 休鷗俱匋褱閒强髙a
+  jisx0208 jisx0213-1 jisx0213:2004-1 jisx0213-2 jisx0212 ksc5601 gb2312 unicode ascii 
+
 コマンド:
   :GetJpCharset  指定した文字列の各文字のcharsetを表示する
 
